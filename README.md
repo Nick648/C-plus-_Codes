@@ -1,2 +1,3 @@
 # C_Codes
-C++ codes
+C++ codes.
+Various information will be added for understanding
