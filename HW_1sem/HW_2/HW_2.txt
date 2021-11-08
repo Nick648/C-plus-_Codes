@@ -1,0 +1,234 @@
+// HW_2.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+#define _USE_MATH_DEFINES
+#include <conio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <Windows.h>
+#include <cmath>
+using namespace std;
+
+bool chis(string s) //Число ли?
+{
+    if (s != "")
+    {
+        if (s.find_first_of(".") == s.find_last_of(".") && s.find_first_of(",") > s.length())
+        {
+            for (int i = 0; i < s.length(); i++)
+            {
+                if ((int(s[i]) < 48 || int(s[i]) > 57) && int(s[i]) != 46 && int(s[0]) != 45)
+                {
+                    cout << "Вы ввели не число( " << endl;
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            cout << "Вы ввели не число(\nЕсли Вы пытались ввести вещественное число, то сделайте это через точку." << endl;
+            return false;
+        }
+    }
+    else
+    {
+        cout << "Вы ввели пустую строку( " << endl;
+        return false;
+    }
+}
+
+bool polchis(string s) //Положительность числа
+{
+    if (chis(s))
+    {
+        double n = atof(s.c_str());
+        if (n > 0)
+            return true;
+        else
+        {
+            cout << "Вы ввели отрицательное число( " << endl;
+            return false;
+        }
+    }
+    else
+        return false;
+}
+
+bool intchis(string s) //Целостность числа
+{
+    if (chis(s))
+    {
+        if (s.find_first_of(".") > s.length())
+            return true;
+        else
+        {
+            cout << "Вы ввели вещественное число( " << endl;
+            return false;
+        }
+    }
+    else
+        return false;
+}
+
+double vvod(string s) //Ввод значения и возврат
+{
+    string str;
+    while (true)
+    {
+        cout << "Введите значение "<< s << ": " << endl;
+        cin >> str;
+        if (chis(str))
+            break;
+    }
+    return atof(str.c_str());
+}
+
+void z1()
+{
+    system("cls");
+    cout << "Задача №1: «Конус». " << endl;
+    string str;
+    while (true)
+    {
+        cout << "Введите значение: R - радиус большего основания: " << endl;
+        cin >> str;
+        if (polchis(str))
+            break;
+    }
+    double R = atof(str.c_str());
+    while (true)
+    {
+        cout << "Введите значение: r - радиус меньшего основания: " << endl;
+        cin >> str;
+        if (polchis(str))
+            break;
+    }
+    double r = atof(str.c_str());
+    while (true)
+    {
+        cout << "Введите значение: H - высоту усеченного конуса: " << endl;
+        cin >> str;
+        if (polchis(str))
+            break;
+    }
+    double H = atof(str.c_str());
+    while (true)
+    {
+        cout << "Введите значение: L - длину образующей усеченного конуса: " << endl;
+        cin >> str;
+        if (polchis(str))
+            break;
+    }
+    double L = atof(str.c_str());
+    cout << "Объём усеченного конуса равен V = " << ((M_PI * H * (R * R + R * r + r * r)) / 3) << endl;
+    cout << "Полная поверхность усеченного конуса равна S = " << (M_PI * (R * R + (R + r) * L + r * r)) << endl;
+}
+
+void z2()
+{
+    system("cls");
+    cout << "Задача №2: «Разветвление». " << endl;
+    double a = vvod("a");
+    double x = vvod("x");
+    if (abs(x) < 1)
+        cout << "Решение уравнения a*ln(abs(x)) = " << (a * log(abs(x))) << endl;
+    else
+    {
+        if ((a - x * x) >= 0)
+            cout << "Решение уравнения sqrt(a - x^2) = " << (sqrt(a - x * x)) << endl;
+        else
+            cout << "Решение уравнения sqrt(a - x^2) = " << sqrt(abs(a - x * x)) << "i" << endl;
+    }
+}
+
+void z3()
+{
+    system("cls");
+    cout << "Задача №3: «Функция».\nz = ln(b - y) * sqrt(b - x) " << endl;
+    double x, y, b;
+a:
+    x = vvod("x");
+    y = vvod("y");
+    b = vvod("b");
+    if ((b - y) < 0)
+    {
+        cout << "Логарифм не может быть от отрицательного числа!" << endl;
+        //goto a;
+    }
+    else
+    {
+        if ((b - x) < 0)
+            cout << "z = " << log(b - y) * sqrt(abs(b - x)) << "i" << endl;
+        else
+            cout << "z = " << log(b - y) * sqrt(b - x) << endl;
+    }
+}
+
+void z4()
+{
+    system("cls");
+    cout << "Задача №4: «Порядок». " << endl;
+    string str;
+    while (true)
+    {
+        cout << "Введите значение N - натуральное число(1, 2, 3...): " << endl;
+        cin >> str;
+        if (polchis(str))
+            if (intchis(str))
+                break;
+    }
+    int N = atoi(str.c_str());
+    cout << "Ваши 10 последовательных натуральных чисел в возрастающем порядке, начиная с числа " << N << ":\n";
+    for (int i = N; i < N + 10; i++)
+        cout << i << " ";
+    cout << endl;
+}
+
+void z5()
+{
+    system("cls");
+    cout << "Задача №5: «Табуляция». \n y = (x^2 - 2x + 2)/(x-1)\n" << endl;
+    cout << setw(7) << left << "x = " << setw(15) << "y(x) = ";
+    for (double x = -4; x <= 4; x += 0.5)
+    {
+        cout << endl << setw(7) << left << x;
+        if (x == 1)
+            cout << setw(15) << "+Infinity (+oo)";
+        else
+            cout << setw(15) << (x * x - 2 * x + 2) / (x - 1);
+    }
+    cout << endl;
+}
+
+int main()
+{
+    //setlocale(LC_ALL, "Russian");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    int num;
+    while (true)
+    {
+        cout << "Введите номер желаемой задачи:\n1) Задача №1\n2) Задача №2\n3) Задача №3\n4) Задача №4\n5) Задача №5\nДля выхода нажмите - Esc."
+            << endl;
+        num = _getch();
+        if (char(num) == '1')
+            z1();
+        else if (char(num) == '2')
+            z2();
+        else if (char(num) == '3')
+            z3();
+        else if (char(num) == '4')
+            z4();
+        else if (char(num) == '5')
+            z5();
+        else if (num == 27)
+            break;
+        else
+            cout << "Такого варианта нет, введите пожалуйста другой." << endl;
+        system("pause");
+        system("cls");
+    }
+    cout << "Всего хорошего!" << endl;
+    system("pause");
+    return (0);
+}
