@@ -1,1 +1,0 @@
-#include "Novel.h"//#include <string>using namespace std;Novel::Novel(Base* parent, string name) : Base(parent, name) {}
