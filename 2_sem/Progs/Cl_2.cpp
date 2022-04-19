@@ -1,0 +1,1 @@
+#include "Cl_2.h"using namespace std;Cl_2::Cl_2(Base* parent, string name, int kready) : Base(parent, name) { this -> setReady(kready); }
