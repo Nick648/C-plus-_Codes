@@ -1,1 +1,0 @@
-#include "Cl_2.h"using namespace std;Cl_2::Cl_2(Base* parent, string name) : Base(parent, name) {}
